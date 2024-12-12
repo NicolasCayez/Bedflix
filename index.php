@@ -1,10 +1,18 @@
 <?php
-    include('./connect.php');
-    if(empty($_SESSION["utilisateur"])) {        
-  // Permet de détruire la session PHP courante ainsi que toutes les données rattachées
-        session_destroy();
-        header("Location: connexion.php");
-    }
+include('./models/connect.php');
+include('./models/_classes.php');
+
+$roles = $db->query("SELECT * FROM roles;")->fetchAll(PDO::FETCH_ASSOC);
+$utilisateurs = $utilisateur->select();
+
+if(empty($_SESSION["utilisateur"])) {        
+    // Permet de détruire la session PHP courante ainsi que toutes les données rattachées
+    session_destroy();
+    header("Location: ./views/connexion.php");
+} elseif (!empty($_SESSION["utilisateur"])) {
+    $user = $utilisateur->selectUtilId($_SESSION["utilisateur"]["id_utilisateur"]);
+    $email = $user[0]["email_utilisateur"];
+}
 ?>
 
 
@@ -18,6 +26,7 @@
 </head>
 <body>
     <h1>index.php</h1>
-    <p><a href="deconnexion.php">Se déconnecter</a></p>
+    <?php if (isset($email)) {echo '<p>Connecté avec l\'identifiant<strong> '.$email.'</strong></p>';} ?>
+    <p><a href="./controllers/deconnexion.php">Se déconnecter</a></p>
 </body>
 </html>
