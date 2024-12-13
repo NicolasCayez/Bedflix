@@ -7,7 +7,7 @@
         && !empty($_POST["form_password"]) && isset($_POST["form_password"])) {
         $email = htmlentities(htmlspecialchars(strip_tags($_POST["form_email"])));
         $password = htmlentities(htmlspecialchars(strip_tags($_POST["form_password"])));
-        $utilFound = $utilisateur->selectUtilEmail($email);
+        $utilFound = $utilisateur->selectByEmail($email);
         if(count($utilFound) == 1){
             $user = $utilFound[0];
             // La fonction rowCount() permet de donner le nombre de lignes pour une requête

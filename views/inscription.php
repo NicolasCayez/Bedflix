@@ -18,7 +18,7 @@
         $password = htmlentities(htmlspecialchars(strip_tags($_POST["form_password"])));
 
         // On recherche si l'adresse email existe déjà en BDD
-        if(empty($utilisateur->selectUtilEmail($email))) {
+        if(empty($utilisateur->selectByEmail($email))) {
             // Si ce n'est pas le cas, on vient l'insérer
             // Insertion, true si réussi, false si raté
             if($utilisateur->insert($nom, $prenom, $pseudo, $email, password_hash($password, PASSWORD_BCRYPT, array("cost" => 12)))) {

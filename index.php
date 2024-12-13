@@ -3,14 +3,14 @@ include('./models/connect.php');
 include('./models/_classes.php');
 
 $roles = $db->query("SELECT * FROM roles;")->fetchAll(PDO::FETCH_ASSOC);
-$utilisateurs = $utilisateur->select();
+// $utilisateurs = $utilisateur->select();
 
 if(empty($_SESSION["utilisateur"])) {        
     // Permet de détruire la session PHP courante ainsi que toutes les données rattachées
     session_destroy();
     header("Location: ./views/connexion.php");
 } elseif (!empty($_SESSION["utilisateur"])) {
-    $user = $utilisateur->selectUtilId($_SESSION["utilisateur"]["id_utilisateur"]);
+    $user = $utilisateur->selectById($_SESSION["utilisateur"]["id_utilisateur"]);
     $email = $user[0]["email_utilisateur"];
 }
 ?>

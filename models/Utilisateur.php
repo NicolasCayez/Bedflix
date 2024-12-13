@@ -4,8 +4,8 @@ class Utilisateur
 {
     private $insert;
     private $select;
-    private $selectUtilId;
-    private $selectUtilEmail;
+    private $selectById;
+    private $selectByEmail;
 
     public function __construct($db)
     {
@@ -14,10 +14,10 @@ class Utilisateur
         $this->select = $db->prepare("SELECT * 
                                         FROM utilisateurs
                                         JOIN roles ON (roles.id_role = utilisateurs.id_role);");
-        $this->selectUtilId = $db->prepare("SELECT * 
+        $this->selectById = $db->prepare("SELECT * 
                                             FROM utilisateurs
                                             WHERE utilisateurs.id_utilisateur = :id_utilisateur;");
-        $this->selectUtilEmail = $db->prepare("SELECT * 
+        $this->selectByEmail = $db->prepare("SELECT * 
                                                 FROM utilisateurs
                                                 WHERE utilisateurs.email_utilisateur = :email_utilisateur;");
     }
@@ -48,22 +48,22 @@ class Utilisateur
         return $this->select->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function selectUtilId($sIdUtilisateur)
+    public function selectById($sIdUtilisateur)
     {
-        $this->selectUtilId->execute(array(":id_utilisateur" => $sIdUtilisateur));
-        if ($this->selectUtilId->errorCode() != 0) {
-            print_r($this->selectUtilId->errorInfo());
+        $this->selectById->execute(array(":id_utilisateur" => $sIdUtilisateur));
+        if ($this->selectById->errorCode() != 0) {
+            print_r($this->selectById->errorInfo());
         }
-        return $this->selectUtilId->fetchAll(PDO::FETCH_ASSOC);
+        return $this->selectById->fetchAll(PDO::FETCH_ASSOC);
     }
 
     
-    public function selectUtilEmail($sEmailUtilisateur)
+    public function selectByEmail($sEmailUtilisateur)
     {
-        $this->selectUtilEmail->execute(array(":email_utilisateur" => $sEmailUtilisateur));
-        if ($this->selectUtilEmail->errorCode() != 0) {
-            print_r($this->selectUtilEmail->errorInfo());
+        $this->selectByEmail->execute(array(":email_utilisateur" => $sEmailUtilisateur));
+        if ($this->selectByEmail->errorCode() != 0) {
+            print_r($this->selectByEmail->errorInfo());
         }
-        return $this->selectUtilEmail->fetchAll(PDO::FETCH_ASSOC);
+        return $this->selectByEmail->fetchAll(PDO::FETCH_ASSOC);
     }
 }
