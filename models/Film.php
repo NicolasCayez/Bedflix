@@ -6,6 +6,8 @@ class Film
     private $select;
     private $selectById;
     private $selectByTitre;
+    private $selectByCatName;
+    private $selectByUtilId;
 
     public function __construct($db)
     {
@@ -19,6 +21,15 @@ class Film
         $this->selectByTitre = $db->prepare("SELECT * 
                                                 FROM films
                                                 WHERE films.titre_film = :titre_film;");
+        $this->selectByCatName = $db->prepare("SELECT * 
+                                                FROM films
+                                                JOIN films_categories AS fc ON films.id_film = fc.id_film
+                                                JOIN categories AS c ON c.id_categorie = fc.id_categorie
+                                                WHERE c.libelle_categorie = :libelle_categorie;");
+        $this->selectByUtilId = $db->prepare("SELECT * 
+                                                FROM films
+                                                JOIN utilisateurs_films AS uf ON films.id_film = uf.id_film
+                                                WHERE uf.id_utilisateur = :id_utilisateur;");
     }
 
     public function insert($sTitre, $sDescription, $sAffiche, $sLien, $sDuree)
@@ -56,12 +67,30 @@ class Film
         return $this->selectById->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function selectSaisonTitre($sTitre)
+    public function selectByTitre($sTitre)
     {
         $this->selectByTitre->execute(array(":titre_film" => $sTitre));
         if ($this->selectByTitre->errorCode() != 0) {
             print_r($this->selectByTitre->errorInfo());
         }
         return $this->selectByTitre->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function selectByCatName($sLibelleCat)
+    {
+        $this->selectByCatName->execute(array(":libelle_categorie" => $sLibelleCat));
+        if ($this->selectByCatName->errorCode() != 0) {
+            print_r($this->selectByCatName->errorInfo());
+        }
+        return $this->selectByCatName->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function selectByUtilId($sIdUtil)
+    {
+        $this->selectByUtilId->execute(array(":id_utilisateur" => $sIdUtil));
+        if ($this->selectByUtilId->errorCode() != 0) {
+            print_r($this->selectByUtilId->errorInfo());
+        }
+        return $this->selectByUtilId->fetchAll(PDO::FETCH_ASSOC);
     }
 }
