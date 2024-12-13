@@ -41,7 +41,7 @@ class Categorie
 
     public function selectRoleId($sIdCategorie)
     {
-        $this->selectById->execute(array(":id_role" => $sIdCategorie));
+        $this->selectById->execute(array(":id_categorie" => $sIdCategorie));
         if ($this->selectById->errorCode() != 0) {
             print_r($this->selectById->errorInfo());
         }
