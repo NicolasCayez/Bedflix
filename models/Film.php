@@ -69,7 +69,7 @@ class Film
 
     public function selectByTitre($sTitre)
     {
-        $this->selectByTitre->execute(array(":titre_film" => $sTitre));
+        $this->selectByTitre->execute(array(':titre_film' => $sTitre));
         if ($this->selectByTitre->errorCode() != 0) {
             print_r($this->selectByTitre->errorInfo());
         }
@@ -78,7 +78,7 @@ class Film
 
     public function selectByCatName($sLibelleCat)
     {
-        $this->selectByCatName->execute(array(":libelle_categorie" => $sLibelleCat));
+        $this->selectByCatName->execute(array(':libelle_categorie' => $sLibelleCat));
         if ($this->selectByCatName->errorCode() != 0) {
             print_r($this->selectByCatName->errorInfo());
         }
@@ -87,7 +87,7 @@ class Film
 
     public function selectByUtilId($sIdUtil)
     {
-        $this->selectByUtilId->execute(array(":id_utilisateur" => $sIdUtil));
+        $this->selectByUtilId->execute(array(':id_utilisateur' => $sIdUtil));
         if ($this->selectByUtilId->errorCode() != 0) {
             print_r($this->selectByUtilId->errorInfo());
         }

@@ -1,0 +1,55 @@
+#logo {
+    width: 100px;
+}
+
+body {
+    background-color: black;
+    color: white;
+}
+
+header {
+    width: 100%;
+    margin: auto;
+}
+
+nav {
+    display: grid;
+    grid-template-columns: 12, 1fr;
+}
+
+#nav-start {
+    grid-column : 1;
+    width: fit-content;
+    padding: auto;
+    
+}
+
+#nav-center {
+    grid-column : 2/6;
+    margin: 1rem;
+
+}
+
+#nav-end {
+    grid-column : 11/12;
+    text-align: end;
+}
+
+header a, footer a{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.cat_grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr 16fr);
+}
+.cat_grid input {
+    width:fit-content;
+}
+
+#admin{
+    background-color:cornflowerblue;
+}

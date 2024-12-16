@@ -8,20 +8,20 @@ class Role
 
     public function __construct($db)
     {
-        $this->insert = $db->prepare("INSERT INTO roles(libelle_role) 
-                                        VALUES(:libelle_role);");
-        $this->select = $db->prepare("SELECT * 
-                                        FROM roles;");
-        $this->selectById = $db->prepare("SELECT * 
+        $this->insert = $db->prepare('INSERT INTO roles(libelle_role) 
+                                        VALUES(:libelle_role);');
+        $this->select = $db->prepare('SELECT * 
+                                        FROM roles;');
+        $this->selectById = $db->prepare('SELECT * 
                                             FROM roles
-                                            WHERE roles.id_role = :id_role;");
+                                            WHERE roles.id_role = :id_role;');
     }
 
     public function insert($sLibelle)
     {
         $r = true;
         $this->insert->execute(array(
-            ":libelle_role" => $sLibelle
+            ':libelle_role' => $sLibelle
         ));
         if ($this->insert->errorCode() != 0) {
             print_r($this->insert->errorInfo());
@@ -41,7 +41,7 @@ class Role
 
     public function selectById($sIdRole)
     {
-        $this->selectById->execute(array(":id_role" => $sIdRole));
+        $this->selectById->execute(array(':id_role' => $sIdRole));
         if ($this->selectById->errorCode() != 0) {
             print_r($this->selectById->errorInfo());
         }

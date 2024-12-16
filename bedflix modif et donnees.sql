@@ -63,7 +63,7 @@ INSERT INTO FILMS(titre_film, description_film, affiche_film, lien_film, duree_f
 			('Film 29', 'Desc film 01', 'UrlAffiche', 'UrlFilm', 105),
 			('Film 30', 'Desc film 01', 'UrlAffiche', 'UrlFilm', 105);
 -- TABLE ASSO FILMS CATEGORIES
-INSERT INTO SERIES_CATEGORIES(id_serie, id_categorie)
+INSERT INTO FILMS_CATEGORIES(id_film, id_categorie)
 	VALUES (1, 1),(1, 2),(1, 13), -- Film 1 Cat 1 2 13
 			(2, 4),(2, 5), -- Film 2 Cat 4 5
 			(3, 7),(3, 9),(3, 12), -- Film 3 Cat 7 9 12
@@ -111,7 +111,7 @@ INSERT INTO SERIES_CATEGORIES(id_serie, id_categorie)
 			(2, 3),(2, 8), -- Serie 2 Cat 3 8
 			(3, 5),(3, 7),(3, 10), -- Serie 3 Cat 5 7 10
 			(4, 6),(4, 8),(4, 11), -- Serie 4 Cat 6 8 11
-			(5, 7),(5, 9),(5, 14), -- Serie 5 Cat 7 9 14
+			(5, 7),(5, 9),(5, 14); -- Serie 5 Cat 7 9 14
 -- TABLE SAISONS
 INSERT INTO SAISONS(id_serie, numero_saison, titre_saison)
 	VALUES (1, 1, "Série 1 Saison 1"),(1, 2, "Série 1 Saison 2"), -- S1s1 ¨1ère saison / S1s2 ¨2ème saison
@@ -156,7 +156,7 @@ INSERT INTO EPISODES(id_saison, numero_episode, titre_episode, duree_episode)
 
 			(9, 1, 'E1', 50), -- S5s1 E1
 			(9, 2, 'E2', 45), -- S5s1 E2
-			(9, 3, 'E3', 60), -- S5s1 E3
+			(9, 3, 'E3', 60); -- S5s1 E3
 
 -- *********************************************
 -- **** ABONNEMENT DES UTILISATEURS A DES FILS OU SERIES

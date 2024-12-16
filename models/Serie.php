@@ -11,35 +11,35 @@ class Serie
 
     public function __construct($db)
     {
-        $this->insert = $db->prepare("INSERT INTO series(titre_serie, description_serie, affiche_serie, lien_serie) 
-                                        VALUES(:titre_serie, :description_serie, :affiche_serie, :lien_serie);");
-        $this->select = $db->prepare("SELECT * 
-                                        FROM series;");
-        $this->selectById = $db->prepare("SELECT * 
+        $this->insert = $db->prepare('INSERT INTO series(titre_serie, description_serie, affiche_serie, lien_serie) 
+                                        VALUES(:titre_serie, :description_serie, :affiche_serie, :lien_serie);');
+        $this->select = $db->prepare('SELECT * 
+                                        FROM series;');
+        $this->selectById = $db->prepare('SELECT * 
                                             FROM series
-                                            WHERE series.id_serie = :id_serie;");
-        $this->selectByTitre = $db->prepare("SELECT * 
+                                            WHERE series.id_serie = :id_serie;');
+        $this->selectByTitre = $db->prepare('SELECT * 
                                                 FROM series
-                                                WHERE series.titre_serie = :titre_serie;");
-        $this->selectByCatName = $db->prepare("SELECT * 
+                                                WHERE series.titre_serie = :titre_serie;');
+        $this->selectByCatName = $db->prepare('SELECT * 
                                                 FROM series
                                                 JOIN series_categories AS sc ON series.id_film = sc.id_film
                                                 JOIN categories AS c ON series.id_categorie = sc.id_categorie
-                                                WHERE c.libelle_categorie = :libelle_categorie;");
-        $this->selectByUtilId = $db->prepare("SELECT * 
+                                                WHERE c.libelle_categorie = :libelle_categorie;');
+        $this->selectByUtilId = $db->prepare('SELECT * 
                                                 FROM films
                                                 JOIN utilisateurs_films AS uf ON films.id_film = uf.id_film
-                                                WHERE uf.id_utilisateur = :id_utilisateur;");
+                                                WHERE uf.id_utilisateur = :id_utilisateur;');
 }
 
     public function insert($sTitre, $sDescription, $sAffiche, $sLien)
     {
         $r = true;
         $this->insert->execute(array(
-            ":titre_serie" => ucfirst(strtolower($sTitre)),
-            ":description_serie" => $sDescription,
-            ":affiche_serie" => $sAffiche,
-            ":lien_serie" => $sLien
+            ':titre_serie' => ucfirst(strtolower($sTitre)),
+            ':description_serie' => $sDescription,
+            ':affiche_serie' => $sAffiche,
+            ':lien_serie' => $sLien
         ));
         if ($this->insert->errorCode() != 0) {
             print_r($this->insert->errorInfo());
@@ -59,7 +59,7 @@ class Serie
 
     public function selectSaisonId($sIdserie)
     {
-        $this->selectById->execute(array(":id_serie" => $sIdserie));
+        $this->selectById->execute(array(':id_serie' => $sIdserie));
         if ($this->selectById->errorCode() != 0) {
             print_r($this->selectById->errorInfo());
         }
@@ -68,7 +68,7 @@ class Serie
 
     public function selectSaisonTitre($sTitre)
     {
-        $this->selectByTitre->execute(array(":titre_serie" => $sTitre));
+        $this->selectByTitre->execute(array(':titre_serie' => $sTitre));
         if ($this->selectByTitre->errorCode() != 0) {
             print_r($this->selectByTitre->errorInfo());
         }
@@ -77,7 +77,7 @@ class Serie
     
     public function selectByCatName($sLibelleCat)
     {
-        $this->selectByCatName->execute(array(":libelle_categorie" => $sLibelleCat));
+        $this->selectByCatName->execute(array(':libelle_categorie' => $sLibelleCat));
         if ($this->selectByCatName->errorCode() != 0) {
             print_r($this->selectByCatName->errorInfo());
         }
@@ -86,7 +86,7 @@ class Serie
     
     public function selectByUtilId($sIdUtil)
     {
-        $this->selectByUtilId->execute(array(":id_utilisateur" => $sIdUtil));
+        $this->selectByUtilId->execute(array(':id_utilisateur' => $sIdUtil));
         if ($this->selectByUtilId->errorCode() != 0) {
             print_r($this->selectByUtilId->errorInfo());
         }

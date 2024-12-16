@@ -7,6 +7,6 @@
         $db = new PDO('mysql:host='.$DB_HOST.';dbname='. $DB_NAME, $BD_USER, $DB_PASSWORD, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     } catch(PDOException $e) {
         $db = NULL;
-        echo ("Erreur: " . $e->getMessage());
+        echo ('Erreur: ' . $e->getMessage());
     }
 ?>

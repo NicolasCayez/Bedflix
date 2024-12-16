@@ -15,8 +15,6 @@ if(empty($_SESSION['utilisateur'])) {
     $email = $user[0]['email_utilisateur'];
 }
 
-//Liste des films
-$listeFilms = $film->select();
 ?>
 
 
@@ -28,19 +26,15 @@ $listeFilms = $film->select();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/styles.css" />
-    <title>Films</title>
+
+    <title>Profil</title>
 </head>
 <body>
     <header>
         <?php include ($base_dir."/views/header.php"); ?>
     </header>
-    
-    <h1>films.php</h1>
-    <ul>
-        <?php foreach($listeFilms as $unFilm){
-            echo '<li>'.$unFilm['titre_film'].' - Synopsys: '.$unFilm['description_film'].' - Durée : '.$unFilm['duree_film'].'</li>';
-        } ?>
-    </ul>
+
+    <h1>profil.php</h1>
 
     <footer>
         <?php include ($base_dir."/views/footer.php"); ?>
