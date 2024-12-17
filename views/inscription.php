@@ -38,23 +38,31 @@ include('../base_dir.php');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?php $base_dir?>/css/styles.css" />
     <title>Inscription</title>
 </head>
-<body>
-    <h1>inscription.PHP</h1>
-    <form method="post">
-        <input type="hidden" name="form_inscription" value="1">
-        <label for="form_nom">Nom:</label>
-        <input type="text" name="form_nom" placeholder="votre nom">
-        <label for="form_prenom">Prénom:</label>
-        <input type="text" name="form_prenom" placeholder="vos prénoms">
-        <label for="form_pseudo">Pseudonyme:</label>
-        <input type="text" name="form_pseudo" placeholder="votre pseudonyme">
-        <label for="form_email">Email:</label>
-        <input type="text" name="form_email" placeholder="Ex: nomprenom@fournisseur.com">
-        <label for="form_password">Mot de passe:</label>
-        <input type="password" name="form_password" placeholder="1234">
-        <input type="submit" value="S'inscrire">
-    </form>
+<body class="body_custom">
+    <div class="custom_card">
+        <h1>Inscription</h1>
+        <form method="post">
+            <input type="hidden" name="form_inscription" value="1">
+            <label for="form_nom">Nom:</label>
+            <input type="text" name="form_nom" placeholder="votre nom" class="margin-top-5">
+            <br>
+            <label for="form_prenom">Prénom:</label>
+            <input type="text" name="form_prenom" placeholder="vos prénoms" class="margin-top-5">
+            <br>
+            <label for="form_pseudo">Pseudonyme:</label>
+            <input type="text" name="form_pseudo" placeholder="votre pseudonyme" class="margin-top-5">
+            <br>
+            <label for="form_email">Email:</label>
+            <input type="text" name="form_email" placeholder="Ex: nomprenom@fournisseur.com" class="margin-top-5">
+            <br>
+            <label for="form_password">Mot de passe:</label>
+            <input type="password" name="form_password" placeholder="1234" class="margin-top-5">
+            <br>
+            <input type="submit" value="S'inscrire" class="margin-top-5">
+        </form>
+    </div>
 </body>
 </html>

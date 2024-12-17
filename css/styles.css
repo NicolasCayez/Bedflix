@@ -10,6 +10,7 @@ body {
 header {
     width: 100%;
     margin: auto;
+    border-bottom: solid 1px red;
 }
 
 nav {
@@ -52,4 +53,30 @@ header a, footer a{
 
 #admin{
     background-color:cornflowerblue;
+}
+
+.custom_card {
+    border: solid 1px red;
+    border-radius: 15px;
+    width: 300px;
+    padding: 5px 30px 30px 30px;
+}
+
+.body_custom {
+    display: grid;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.margin-top-5 {
+    margin-top: 5px;
+}
+
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+.margin-end-20 {
+    margin-right: 20px;
 }

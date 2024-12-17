@@ -33,77 +33,72 @@ if(empty($_SESSION['utilisateur']) || $_SESSION['utilisateur']['id_role'] != 1) 
     <h1>Bienvenue sur l'interface d'administration</h1>
 
     <nav>
-
+    <?php $formFilm = false; $formSerie = false; $formSaison = false; 
+    if(isset($_POST['form_media_type']) && ($_POST['form_media_type'] == "film")) {$formFilm = true;}
+    if(isset($_POST['form_media_type']) && ($_POST['form_media_type'] == "serie")) {$formSerie = true;}
+    if(isset($_POST['form_media_type']) && ($_POST['form_media_type'] == "saison")) {$formSaison = true;} ?>
         <form method="post">
             <fieldset>
                 <legend>Sélectionner le type de média</legend>
-                <select id="" name="media_type">
-                    <option>Film</option>
-                    <option>Série</option>
-                    <option>Saison dans une série existante</option>
+                <input type="hidden" name="form_media" value="1">
+                <select id="form_media_type" name="form_media_type">
+                    <option value="film"<?php if(isset($_POST['form_media_type']) && $formFilm) {echo 'selected';} ?>>Film</option>
+                    <option value="serie"<?php if(isset($_POST['form_media_type']) && $formSerie) {echo 'selected';} ?>>Série</option>
+                    <option value="saison"<?php if(isset($_POST['form_media_type']) && $formSaison) {echo 'selected';} ?>>Saison dans une série existante</option>
                 </select>
                 <input type="submit" value="Valider choix">
             </fieldset>
         </form>
-
         <form method="post">
-            <fieldset>
-                <legend>Informations film ou serie</legend>
-                <!-- Activer su film ou serie -->
-                <label for="titre_libelle">Titre du media</label>
-                <input type="text" name="titre_libelle" placeholder="titre">
-                <label for="description">Description du media</label>
-                <input type="text" name="description" placeholder="description">
-                <!-- activer duree si film -->
-                <label for="duree">Durée du media</label>
-                <input type="text" name="duree" placeholder="duree">
-                <label for="lien">Lien du media</label>
-                <input type="url" name="lien" placeholder="lien">
-                <label for="affiche">affiche du media</label>
-                <input type="file" name="affiche">
-            </fieldset>
-                <!-- activer saison si serie -->
-            <fieldset>
-                <legend>Sélectionner les catégories</legend>
-                <div class="cat_grid">
-                    <?php $catList = $categorie->select();
-                    foreach ($catList as $uneCat) {
-                        $lib = strtolower($uneCat['libelle_categorie']);
-                        echo '<input type="checkbox" id="'.$lib.'" name="'.$lib.'" />
-                        <label for="'.$lib.'">'.ucfirst($lib).'</label>';
-                    }?>
-                </div>
-            </fieldset>
-            <!-- activer si saison -->
-            <fieldset>
-                <label for="titre_libelle">Titre du media</label>
-                <input type="text" name="titre_libelle" placeholder="titre">
-                <label for="description">Description du media</label>
-                <input type="text" name="description" placeholder="description">
-                <!-- activer duree si film -->
-                <label for="duree">Durée du media</label>
-                <input type="text" name="duree" placeholder="duree">
-                <label for="lien">Lien du media</label>
-                <input type="url" name="lien" placeholder="lien">
-                <label for="affiche">affiche du media</label>
-                <input type="file" name="affiche">
-            </fieldset>
-            <!-- activer si saison -->
-            <fieldset>
-                <select id="" name="media_type">
-                    <?php $seriesList = $serie->select();
-                    foreach ($seriesList as $uneSerie) {
-                        $titre = $uneSerie['titre_serie'];
-                        echo '<option>'.$titre.'</option>';
-                    }?>
-                </select>
-                <label for="numero">Numéro de la saison</label>
-                <input type="text" name="numero" placeholder="numero">
-                <label for="titre">Titre de la saison</label>
-                <input type="text" name="titre" placeholder="titre">
-            </fieldset>
-
-
+            <?php if(isset($_POST['form_media_type']) && ($formFilm || $formSerie || $formSaison)) { ?>
+                <fieldset>
+                    <legend>Informations film ou serie</legend>
+                    <!-- SERIE ou FILM -->
+                    <?php if($formFilm || $formSerie) { ?>
+                        <label for="titre_libelle">Titre du media</label>
+                        <input type="text" name="titre_libelle" placeholder="titre">
+                        <label for="description">Description du media</label>
+                        <input type="text" name="description" placeholder="description">
+                        <?php if($formFilm) { ?>
+                            <!-- FILM -->
+                            <label for="duree">Durée du media</label>
+                            <input type="text" name="duree" placeholder="duree">
+                        <?php } ?>
+                        <label for="lien">Lien du media</label>
+                        <input type="url" name="lien" placeholder="lien">
+                        <label for="affiche">affiche du media</label>
+                        <input type="file" name="affiche">
+                    <?php }
+                    if($formSaison) { ?>
+                        <!-- SAISON -->
+                        <select id="" name="media_type">
+                            <?php $seriesList = $serie->select();
+                            foreach ($seriesList as $uneSerie) {
+                                $titre = $uneSerie['titre_serie'];
+                                echo '<option>'.$titre.'</option>';
+                            }?>
+                        </select>
+                        <label for="numero">Numéro de la saison</label>
+                        <input type="text" name="numero" placeholder="numero">
+                        <label for="titre">Titre de la saison</label>
+                        <input type="text" name="titre" placeholder="titre">
+                    <?php } ?>
+                </fieldset>
+                <!-- SERIE ou FILM -->
+                <?php if($formFilm || $formSerie) { ?>
+                    <fieldset>
+                        <legend>Sélectionner les catégories</legend>
+                        <div class="cat_grid">
+                            <?php $catList = $categorie->select();
+                            foreach ($catList as $uneCat) {
+                                $lib = strtolower($uneCat['libelle_categorie']);
+                                echo '<input type="checkbox" id="'.$lib.'" name="'.$lib.'" />
+                                <label for="'.$lib.'">'.ucfirst($lib).'</label>';
+                            }?>
+                        </div>
+                    </fieldset>
+                <?php }
+            } ?>
         </form>
     </nav>
 

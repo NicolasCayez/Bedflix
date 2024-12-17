@@ -13,7 +13,7 @@
             $user = $utilisateur->selectById($_SESSION['utilisateur']['id_utilisateur']);
             echo '<p>Connecté avec l\'identifiant<strong> '.$user[0]['email_utilisateur'].'</strong></p>';
                 if ($user[0]['id_role'] == 1) {?>
-                    <a href="<?php $base_dir?>/views/administration.php">Administration</a>'
+                    <a href="<?php $base_dir?>/views/administration.php" class="margin-end-20">Administration</a>
                 <?php }
             }?>
         <a href="<?php $base_dir?>/controllers/deconnexion.php">Se déconnecter</a>
