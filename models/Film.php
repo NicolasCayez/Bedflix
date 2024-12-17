@@ -8,6 +8,8 @@ class Film
     private $selectByTitre;
     private $selectByCatName;
     private $selectByUtilId;
+    private $updateById;
+    private $deleteById;
 
     public function __construct($db)
     {
@@ -30,6 +32,11 @@ class Film
                                                 FROM films
                                                 JOIN utilisateurs_films AS uf ON films.id_film = uf.id_film
                                                 WHERE uf.id_utilisateur = :id_utilisateur;");
+        $this->updateById = $db->prepare("UPDATE films
+                                            SET titre_film = :titre_film, description_film = :description_film, affiche_film = :affiche_film, lien_film = :lien_film, duree_film = :duree_film
+                                            WHERE films.id_film = :id_film;");
+        $this->deleteById = $db->prepare("DELETE FROM films_categories WHERE films_categories.id_film = :id_film;
+                                            DELETE FROM films WHERE films.id_film = :id_film;");
     }
 
     public function insert($sTitre, $sDescription, $sAffiche, $sLien, $sDuree)
@@ -58,7 +65,7 @@ class Film
         return $this->select->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function selectSaisonId($sIdFilm)
+    public function selectById($sIdFilm)
     {
         $this->selectById->execute(array(":id_film" => $sIdFilm));
         if ($this->selectById->errorCode() != 0) {
@@ -92,5 +99,34 @@ class Film
             print_r($this->selectByUtilId->errorInfo());
         }
         return $this->selectByUtilId->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function updateById($sIdFilm, $sTitre, $sDescription, $sAffiche, $sLien, $sDuree)
+    {
+        $r = true;
+        $this->updateById->execute(array(
+            ":id_film" => $sIdFilm,
+            ":titre_film" => ucfirst(strtolower($sTitre)),
+            ":description_film" => $sDescription,
+            ":affiche_film" => $sAffiche,
+            ":lien_film" => $sLien,
+            ":duree_film" => $sDuree
+        ));
+        if ($this->updateById->errorCode() != 0) {
+            print_r($this->updateById->errorInfo());
+            $r = false;
+        }
+        return $r;
+    }
+
+    public function deleteById($sIdFilm)
+    {
+        $r = true;
+        $this->deleteById->execute(array(':id_film' => $sIdFilm));
+        if ($this->deleteById->errorCode() != 0) {
+            print_r($this->deleteById->errorInfo());
+            $r = false;
+        }
+        return $r;
     }
 }
