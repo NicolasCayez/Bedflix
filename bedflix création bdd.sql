@@ -89,3 +89,19 @@ CREATE TABLE IF NOT EXISTS EPISODES(
 	id_saison INT NOT NULL, 
 	FOREIGN KEY(id_saison) REFERENCES SAISONS(id_saison)
 ) Engine=InnoDB;
+
+
+-- *********************************************
+-- **** MODIF BDD
+-- **** Role par défaut pour les utilisateurs
+-- *********************************************
+INSERT INTO ROLES (libelle_role) VALUES ('Administrateur'),('Abonné');
+ALTER TABLE UTILISATEURS
+CHANGE id_role id_role INT NOT NULL DEFAULT 2;
+
+-- *********************************************
+-- **** MODIF BDD
+-- **** Création Administrateur id 1:  administrateur@moi.net/1234
+-- *********************************************
+INSERT INTO utilisateurs (nom_utilisateur, prenom_utilisateur, email_utilisateur, pseudo_utilisateur, mot_de_passe_utilisateur, id_role)
+VALUES (administrateur, administrateur, administrateur@moi.net, administrateur, 1234, 1);
