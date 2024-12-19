@@ -3,18 +3,7 @@
 -- *********************************************
 USE bedflix;
 
--- *********************************************
--- **** MODIF BDD
--- **** Role par défaut pour les utilisateurs
--- *********************************************
-INSERT INTO ROLES (libelle_role) VALUES ('Administrateur'),('Abonné');
-ALTER TABLE UTILISATEURS
-CHANGE id_role id_role INT NOT NULL DEFAULT 2;
 
--- * APRES création Administrateur (1er user)
--- UPDATE UTILISATEURS SET id_role = 1 WHERE id_utilisateur = 1;
-
--- * CREER DES UTILISATEURS SUR LE SITE
 
 -- *********************************************
 -- **** CATEGORIES
